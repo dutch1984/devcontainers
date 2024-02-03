@@ -1,0 +1,27 @@
+{
+	"name": "ADC default devcontainer",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:18",
+	"features": {
+		"ghcr.io/devcontainers/features/aws-cli": {
+			"version": "latest"
+		}
+	},
+	"postCreateCommand": {
+		"cdk": "npm install -g aws-cdk",
+		"dependencies": "npm install"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"blackboxapp.blackbox",
+				"amazonwebservices.aws-toolkit-vscode",
+				"github.copilot"
+			]
+		}
+	},
+	"mounts": [
+		// Makes sure we use the AWS credentials file stored on the local file system.
+		// The CLI will look for the config file at the $HOME location (~). So make sure that is the target.
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/home/node/.aws,type=bind"
+	]
+}
